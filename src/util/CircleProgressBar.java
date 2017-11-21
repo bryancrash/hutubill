@@ -112,7 +112,7 @@ public class CircleProgressBar extends JPanel {
         b.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new SwingWorker<>() {
+                new SwingWorker() {
                     @Override
                     protected Object doInBackground() throws Exception {
                         for (int i = 0; i <100 ; i++) {
