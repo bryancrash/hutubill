@@ -3,20 +3,30 @@ package util;
 
 import com.objectplanet.chart.BarChart;
 import com.objectplanet.chart.Chart;
+import entity.Record;
+import service.ReportService;
 
-import javax.swing.*;
-import java.awt.*;
+import java.util.List;
+
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import java.awt.Image;
+import java.awt.Color;
+import java.awt.Font;
+
 
 /**
  * Created by ${tianlin} on 2017-10-28.
  */
 public class ChartUtil {
 
-    public static Image getImage(int width,int height){
+    public static Image getImage(List<Record> rs, int width, int height){
         //模拟样本数据
-        double[] sampleValues=sampleValues();
+        double[] sampleValues=sampleValues(rs);
         //下方显示的文字
-        String[] sampleLabels=sampleLabels();
+        String[] sampleLabels=sampleLabels(rs);
         //样本中的最大值
         int max=max(sampleValues);
 
@@ -71,8 +81,8 @@ public class ChartUtil {
         }
         return max;
     }
-    private static String[] sampleLabels() {
-        String[] sampleLables=new String[30];
+    private static String[] sampleLabels(List<Record> rs) {
+        String[] sampleLables = new String[rs.size()];
         for (int i = 0; i <sampleLables.length ; i++) {
             if(0==i%5) {
                 sampleLables[i] = String.valueOf(i + 1 + "日");
@@ -81,10 +91,10 @@ public class ChartUtil {
         return sampleLables;
     }
 
-    private static double[] sampleValues(){
-        double[] result=new double[30];
+    private static double[] sampleValues(List<Record> rs){
+        double[] result=new double[rs.size()];
         for (int i = 0; i <result.length ; i++) {
-            result[i]=(int)(Math.random()*300);
+            result[i]=rs.get(i).spend;
         }
         return result;
     }
@@ -92,7 +102,8 @@ public class ChartUtil {
     public static void main(String[] args){
         JPanel p=new JPanel();
         JLabel L=new JLabel();
-        Image img=ChartUtil.getImage(400,300);
+        List<Record> rs = new ReportService().listThisMonthRecords();
+        Image img=ChartUtil.getImage(rs,400,300);
         Icon icon=new ImageIcon(img);
         L.setIcon(icon);
         p.add(L);

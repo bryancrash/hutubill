@@ -1,5 +1,6 @@
 package gui.panel;
 
+import gui.listener.BackupListener;
 import util.ColorUtil;
 import util.GUIUtil;
 
@@ -19,8 +20,14 @@ public class BackupPanel extends JPanel {
     public BackupPanel(){
         GUIUtil.setColor(ColorUtil.blueColor,bBackup);
         this.add(bBackup);
+        addListener();
     }
 
+
+    public void addListener(){
+        BackupListener listener = new BackupListener();
+        bBackup.addActionListener(listener);
+    }
     public static void main(String[] args){
         GUIUtil.showPanel(BackupPanel.instance);
     }

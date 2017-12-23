@@ -1,5 +1,7 @@
 package gui.panel;
 
+import gui.listener.ConfigListener;
+import service.ConfigService;
 import util.ColorUtil;
 import util.GUIUtil;
 
@@ -30,16 +32,31 @@ public class ConfigPanel extends JPanel {
         JPanel pSubmit=new JPanel();
         int gap=40;
         pInput.setLayout(new GridLayout(4,1,gap,gap));
-
         pInput.add(IBudget);
         pInput.add(tfBudget);
         pInput.add(IMysql);
         pInput.add(tfMysqlPath);
         this.setLayout(new BorderLayout());
         this.add(pInput,BorderLayout.NORTH);
-
         pSubmit.add(bSubmit);
         this.add(pSubmit,BorderLayout.CENTER);
+        
+        addListener();
+    }
+
+
+    public void addListener() {
+        ConfigListener l=new ConfigListener();
+        bSubmit.addActionListener(l);
+    }
+
+
+    public void updateData(){
+        String budget=new ConfigService().get(ConfigService.budget);
+        String mysqlPath=new ConfigService().get(ConfigService.mysqlPath);
+        tfBudget.setText(budget);
+        tfMysqlPath.setText(mysqlPath);
+        tfBudget.grabFocus();
     }
 
     public static void main(String[] args){

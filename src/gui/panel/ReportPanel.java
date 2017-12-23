@@ -1,10 +1,14 @@
 package gui.panel;
 
+import entity.Record;
+import service.ReportService;
 import util.ChartUtil;
 import util.GUIUtil;
+import java.util.List;
 
 import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Image;
 
 /**
  * Created by ${tianlin} on 2017-11-18.
@@ -20,12 +24,12 @@ public class ReportPanel extends JPanel {
 
     public ReportPanel(){
         this.setLayout(new BorderLayout());
-        Image i= ChartUtil.getImage(400,300);
+        List<Record> rs = new ReportService().listThisMonthRecords();
+        Image i= ChartUtil.getImage(rs,400,300);
         ImageIcon icon=new ImageIcon(i);
         l.setIcon(icon);
         this.add(l);
     }
-
     public static void main(String[] args){
         GUIUtil.showPanel(ReportPanel.instance);
     }

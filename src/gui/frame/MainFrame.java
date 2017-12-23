@@ -11,7 +11,7 @@ public class MainFrame extends JFrame {
     public static MainFrame instance=new MainFrame();
 
     private MainFrame(){
-        this.setSize(500,400);
+        this.setSize(500,500);
         this.setTitle("一本糊涂账");
         this.setContentPane(MainPanel.instance);
         this.setLocationRelativeTo(null);
